@@ -16,7 +16,9 @@ import {
   Star,
   ArrowRight,
   Play,
-  LogIn
+  LogIn,
+  Bot,
+  Smartphone
 } from "lucide-react";
 import { DashboardDemo } from "@/components/DashboardDemo";
 import { FeaturesGrid } from "@/components/FeaturesGrid";
@@ -27,6 +29,45 @@ import heroImage from "@/assets/gumeo-hero.jpg";
 
 export default function Index() {
   const { user } = useAuth();
+
+  const features = [
+    {
+      icon: Calendar,
+      title: "Gestão de Consultas",
+      description: "Agende, reagende e gerencie suas consultas com facilidade. Sincronização automática com seu calendário.",
+      gradient: "from-blue-500 to-blue-600"
+    },
+    {
+      icon: Users,
+      title: "Prontuários Digitais",
+      description: "Mantenha históricos completos dos pacientes, com segurança e facilidade de acesso.",
+      gradient: "from-green-500 to-green-600"
+    },
+    {
+      icon: CreditCard,
+      title: "Gestão Financeira",
+      description: "Controle de pagamentos, recibos automáticos e relatórios financeiros detalhados.",
+      gradient: "from-purple-500 to-purple-600"
+    },
+    {
+      icon: Bot,
+      title: "Assistente IA",
+      description: "IA integrada para auxiliar em diagnósticos, prescrições e análise de prontuários.",
+      gradient: "from-orange-500 to-orange-600"
+    },
+    {
+      icon: Smartphone,
+      title: "App Mobile",
+      description: "Acesse tudo pelo smartphone. Notificações em tempo real e sincronização completa.",
+      gradient: "from-pink-500 to-pink-600"
+    },
+    {
+      icon: Shield,
+      title: "Segurança Total",
+      description: "Conformidade com LGPD, criptografia avançada e backups automáticos em nuvem.",
+      gradient: "from-red-500 to-red-600"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary">
@@ -151,7 +192,7 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <FeaturesGrid />
+      <FeaturesGrid features={features} />
 
       {/* Dashboard Demo */}
       <DashboardDemo />
