@@ -15,7 +15,8 @@ import {
   LogOut,
   Settings,
   Moon,
-  Sun
+  Sun,
+  HelpCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,6 +65,7 @@ export default function Dashboard() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -189,9 +191,13 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings')}>
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Configurações</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/help')}>
+                    <HelpCircle className="mr-2 h-4 w-4" />
+                    <span>Central de Ajuda</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut}>

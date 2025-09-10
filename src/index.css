@@ -47,16 +47,21 @@
   
   /* Medical gradients */
   --gradient-primary: linear-gradient(135deg, hsl(210 70% 50%), hsl(210 70% 65%));
+  --gradient-secondary: linear-gradient(135deg, hsl(210 20% 96%), hsl(210 30% 85%));
   --gradient-medical: linear-gradient(135deg, hsl(210 70% 50%), hsl(150 50% 50%));
   --gradient-hero: linear-gradient(180deg, hsl(210 20% 98%), hsl(210 20% 95%));
-  
+  --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(210 20% 99%));
+  --gradient-dashboard: linear-gradient(180deg, hsl(210 20% 97%), hsl(210 20% 94%));
+
   /* Shadows with medical theme */
   --shadow-elegant: 0 10px 30px -10px hsl(210 70% 50% / 0.15);
   --shadow-glow: 0 0 40px hsl(210 70% 65% / 0.25);
   --shadow-card: 0 4px 20px -4px hsl(210 20% 0% / 0.08);
-  
+  --shadow-medical: 0 8px 25px -8px hsl(210 70% 50% / 0.2);
+
   /* Animations */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .dark {
@@ -102,117 +107,17 @@
   
   /* Dark mode gradients */
   --gradient-primary: linear-gradient(135deg, hsl(210 70% 60%), hsl(210 70% 75%));
+  --gradient-secondary: linear-gradient(135deg, hsl(220 30% 10%), hsl(220 30% 20%));
   --gradient-medical: linear-gradient(135deg, hsl(210 70% 60%), hsl(150 50% 60%));
   --gradient-hero: linear-gradient(180deg, hsl(220 30% 6%), hsl(220 30% 8%));
-  
+  --gradient-card: linear-gradient(135deg, hsl(220 30% 8%), hsl(220 30% 10%));
+  --gradient-dashboard: linear-gradient(180deg, hsl(220 30% 7%), hsl(220 30% 9%));
+
   /* Dark mode shadows */
   --shadow-elegant: 0 10px 30px -10px hsl(210 70% 60% / 0.25);
   --shadow-glow: 0 0 40px hsl(210 70% 75% / 0.35);
   --shadow-card: 0 4px 20px -4px hsl(220 30% 0% / 0.4);
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-}
-
-@layer components {
-  /* Medical SaaS Components */
-  .gradient-primary {
-    background: var(--gradient-primary);
-  }
-
-  .gradient-medical {
-    background: var(--gradient-medical);
-  }
-
-  .gradient-hero {
-    background: var(--gradient-hero);
-  }
-
-  .shadow-elegant {
-    box-shadow: var(--shadow-elegant);
-  }
-
-  .shadow-glow {
-    box-shadow: var(--shadow-glow);
-  }
-
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
-
-  .transition-smooth {
-    transition: var(--transition-smooth);
-  }
-
-  /* Medical Dashboard Cards */
-  .medical-card {
-    @apply bg-card rounded-lg shadow-card border border-border/50 transition-smooth hover:shadow-elegant hover:-translate-y-1;
-  }
-
-  .medical-card-glow {
-    @apply medical-card hover:shadow-glow;
-  }
-
-  /* Medical Stats */
-  .medical-stat {
-    @apply text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
-  }
-
-  .medical-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20;
-  }
-
-  /* Medical Animations */
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.8s ease-out;
-  }
-
-  .animate-pulse-glow {
-    animation: pulseGlow 2s infinite;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.4);
-  }
-  50% {
-    box-shadow: 0 0 40px hsl(var(--primary-glow) / 0.8);
-  }
+  --shadow-medical: 0 8px 25px -8px hsl(210 70% 60% / 0.3);
 }
 
 @layer base {
@@ -236,6 +141,10 @@
     background: var(--gradient-secondary);
   }
 
+  .gradient-medical {
+    background: var(--gradient-medical);
+  }
+
   .gradient-hero {
     background: var(--gradient-hero);
   }
@@ -246,6 +155,10 @@
 
   .gradient-dashboard {
     background: var(--gradient-dashboard);
+  }
+
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
   }
 
   .shadow-medical {
@@ -286,6 +199,26 @@
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20;
   }
 
+  /* Premium Components */
+  .premium-button {
+    @apply relative overflow-hidden gradient-primary text-white font-semibold px-6 py-3 rounded-lg shadow-glow transition-bounce hover:scale-105 hover:shadow-medical;
+  }
+
+  .premium-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Interactive Animations */
+  .hover-lift {
+    @apply transition-bounce hover:-translate-y-2 hover:shadow-glow;
+  }
+
+  .hover-glow {
+    @apply transition-smooth hover:shadow-glow hover:scale-[1.02];
+  }
+
   /* Medical Animations */
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out;
@@ -297,6 +230,10 @@
 
   .animate-pulse-glow {
     animation: pulseGlow 2s infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
   }
 }
 
@@ -324,9 +261,27 @@
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 20px hsl(200 85% 65% / 0.4);
+    box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.4);
   }
   50% {
-    box-shadow: 0 0 40px hsl(200 85% 65% / 0.8);
+    box-shadow: 0 0 40px hsl(var(--primary-glow) / 0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
