@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LucideIcon } from "lucide-react";
+import { ScrollAnimation } from "@/components/ScrollAnimation";
 
 interface Feature {
   icon: LucideIcon;
@@ -15,68 +16,74 @@ interface FeaturesGridProps {
 
 export const FeaturesGrid = ({ features }: FeaturesGridProps) => {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <Badge className="medical-badge mb-4">
-            Recursos Principais
-          </Badge>
-          <h2 className="text-4xl font-bold mb-4">
-            Tudo que Você Precisa em Uma Plataforma
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ferramentas integradas para modernizar e otimizar sua prática médica
-          </p>
-        </div>
+    <section id="features" className="py-24 bg-background relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+      
+      <div className="container mx-auto px-6 relative">
+        <ScrollAnimation animation="fade-in">
+          <div className="text-center mb-16">
+            <Badge className="medical-badge mb-4">
+              Recursos Principais
+            </Badge>
+            <h2 className="text-5xl font-bold mb-6 text-gradient">
+              Tudo que Você Precisa
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Ferramentas integradas para modernizar e otimizar sua prática médica
+            </p>
+          </div>
+        </ScrollAnimation>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {features.map((feature, index) => (
-            <Card 
-              key={index} 
-              className="medical-card-glow group hover:scale-105 transition-all duration-300"
-              style={{ animationDelay: `${index * 0.1}s` }}
+            <ScrollAnimation 
+              key={index}
+              animation="slide-up"
+              delay={index * 100}
             >
-              <CardHeader className="text-center">
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br ${feature.gradient} p-4 shadow-medical group-hover:shadow-glow transition-all duration-300`}>
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-xl mb-2">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <CardDescription className="text-sm leading-relaxed">
-                  {feature.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
+              <Card className="card-interactive group h-full">
+                <CardHeader className="text-center pb-4">
+                  <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${feature.gradient} p-5 shadow-float group-hover:shadow-glow transition-all duration-300`}>
+                    <feature.icon className="w-10 h-10 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl mb-2 text-gradient">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center pt-0">
+                  <CardDescription className="text-base leading-relaxed text-muted-foreground">
+                    {feature.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            </ScrollAnimation>
           ))}
         </div>
 
         {/* Integration Logos */}
-        <div className="mt-16 text-center">
-          <p className="text-sm text-muted-foreground mb-8">
-            Integra nativamente com suas ferramentas favoritas
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            <div className="px-6 py-3 bg-white rounded-lg shadow-sm border">
-              <span className="font-semibold text-gray-700">Google Calendar</span>
-            </div>
-            <div className="px-6 py-3 bg-white rounded-lg shadow-sm border">
-              <span className="font-semibold text-gray-700">ChatGPT</span>
-            </div>
-            <div className="px-6 py-3 bg-white rounded-lg shadow-sm border">
-              <span className="font-semibold text-gray-700">WhatsApp</span>
-            </div>
-            <div className="px-6 py-3 bg-white rounded-lg shadow-sm border">
-              <span className="font-semibold text-gray-700">PIX</span>
-            </div>
-            <div className="px-6 py-3 bg-white rounded-lg shadow-sm border">
-              <span className="font-semibold text-gray-700">Google Sheets</span>
-            </div>
-            <div className="px-6 py-3 bg-white rounded-lg shadow-sm border">
-              <span className="font-semibold text-gray-700">Zapier</span>
+        <ScrollAnimation animation="slide-up" delay={600}>
+          <div className="mt-20 text-center">
+            <p className="text-lg text-muted-foreground mb-8 font-medium">
+              Integra nativamente com suas ferramentas favoritas
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
+              {[
+                "Google Calendar",
+                "ChatGPT",
+                "WhatsApp",
+                "PIX",
+                "Google Sheets",
+                "Zapier"
+              ].map((integration, index) => (
+                <div 
+                  key={index}
+                  className="glass-card px-6 py-4 hover-lift"
+                >
+                  <span className="font-semibold text-foreground">{integration}</span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
+        </ScrollAnimation>
       </div>
     </section>
   );

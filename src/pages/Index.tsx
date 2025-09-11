@@ -18,12 +18,14 @@ import {
   Play,
   LogIn,
   Bot,
-  Smartphone
+  Smartphone,
+  ChevronDown
 } from "lucide-react";
 import { DashboardDemo } from "@/components/DashboardDemo";
 import { FeaturesGrid } from "@/components/FeaturesGrid";
 import { PricingSection } from "@/components/PricingSection";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ScrollAnimation } from "@/components/ScrollAnimation";
 import { useAuth } from "@/hooks/useAuth";
 import heroImage from "@/assets/gumeo-hero.jpg";
 
@@ -70,38 +72,40 @@ export default function Index() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary">
+    <div className="min-h-screen bg-gradient-mesh">
       {/* Header */}
-      <header className="bg-card/95 backdrop-blur-sm border-b border-border shadow-sm sticky top-0 z-50">
+      <header className="glass-nav sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
-              <Heart className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Heart className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-2xl font-bold text-gradient">
                 Gumeo
               </span>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#features" className="nav-link">
                 Recursos
               </a>
-              <a href="#pricing" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#pricing" className="nav-link">
                 Preços
               </a>
-              <a href="#demo" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#demo" className="nav-link">
                 Demo
               </a>
               <div className="flex items-center space-x-4">
                 <ThemeToggle />
                 {user ? (
                   <Link to="/dashboard">
-                    <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">
+                    <Button className="btn-futuristic">
                       Dashboard
                     </Button>
                   </Link>
                 ) : (
                   <Link to="/auth">
-                    <Button className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">
+                    <Button className="btn-futuristic">
                       <LogIn className="h-4 w-4 mr-2" />
                       Entrar
                     </Button>
@@ -115,123 +119,143 @@ export default function Index() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/20" />
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-5"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full animate-float blur-xl" />
+          <div className="absolute bottom-32 right-16 w-32 h-32 bg-accent/20 rounded-full animate-float blur-xl" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 right-8 w-16 h-16 bg-primary/30 rounded-full animate-float blur-xl" style={{ animationDelay: '2s' }} />
+        </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <Badge className="mb-6 medical-badge animate-fade-in">
-            <Zap className="w-3 h-3 mr-1" />
-            Revolucionando a Gestão de Saúde
-          </Badge>
+          <ScrollAnimation animation="fade-in">
+            <Badge className="medical-badge mb-6">
+              <Zap className="w-3 h-3 mr-1" />
+              Revolucionando a Gestão de Saúde
+            </Badge>
+          </ScrollAnimation>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-slide-up">
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Gumeo
-            </span>
-          </h1>
+          <ScrollAnimation animation="slide-up" delay={200}>
+            <h1 className="text-6xl md:text-8xl font-bold mb-6">
+              <span className="text-gradient">
+                Gumeo
+              </span>
+            </h1>
+          </ScrollAnimation>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-up">
-            Gestão Inteligente Gratuita para Profissionais de Saúde com IA, 
-            automação e integrações nativas
-          </p>
+          <ScrollAnimation animation="slide-up" delay={400}>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Gestão Inteligente Gratuita para Profissionais de Saúde com IA, 
+              automação e integrações nativas
+            </p>
+          </ScrollAnimation>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-slide-up">
+          <ScrollAnimation animation="slide-up" delay={600}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              {user ? (
+                <Link to="/dashboard">
+                  <Button size="lg" className="btn-futuristic">
+                    Ir ao Dashboard
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link to="/auth">
+                  <Button size="lg" className="btn-futuristic">
+                    Começar Grátis
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              )}
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                <Play className="mr-2 h-5 w-5" />
+                Ver Demo
+              </Button>
+            </div>
+          </ScrollAnimation>
+
+          {/* Stats Row */}
+          <ScrollAnimation animation="slide-up" delay={800}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              <div className="glass-card p-4 text-center hover-lift">
+                <Heart className="w-6 h-6 text-primary mx-auto mb-2" />
+                <div className="text-2xl font-bold text-gradient">10K+</div>
+                <div className="text-sm text-muted-foreground">Profissionais</div>
+              </div>
+              <div className="glass-card p-4 text-center hover-lift">
+                <Calendar className="w-6 h-6 text-primary mx-auto mb-2" />
+                <div className="text-2xl font-bold text-gradient">500K+</div>
+                <div className="text-sm text-muted-foreground">Consultas</div>
+              </div>
+              <div className="glass-card p-4 text-center hover-lift">
+                <Star className="w-6 h-6 text-primary mx-auto mb-2" />
+                <div className="text-2xl font-bold text-gradient">98%</div>
+                <div className="text-sm text-muted-foreground">Satisfação</div>
+              </div>
+              <div className="glass-card p-4 text-center hover-lift">
+                <Clock className="w-6 h-6 text-primary mx-auto mb-2" />
+                <div className="text-2xl font-bold text-gradient">4hrs</div>
+                <div className="text-sm text-muted-foreground">Economizadas</div>
+              </div>
+            </div>
+          </ScrollAnimation>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <ChevronDown className="w-6 h-6 text-muted-foreground" />
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <ScrollAnimation animation="fade-in">
+        <FeaturesGrid features={features} />
+      </ScrollAnimation>
+
+      {/* Dashboard Demo */}
+      <ScrollAnimation animation="slide-up">
+        <DashboardDemo />
+      </ScrollAnimation>
+
+      {/* Pricing */}
+      <ScrollAnimation animation="fade-in">
+        <PricingSection />
+      </ScrollAnimation>
+
+      {/* CTA Section */}
+      <ScrollAnimation animation="slide-up">
+        <section className="py-20 bg-gradient-primary text-primary-foreground relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20" />
+          <div className="container mx-auto px-6 text-center relative z-10">
+            <h2 className="text-4xl font-bold mb-6">
+              Pronto para Revolucionar sua Prática?
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Junte-se a milhares de profissionais que já transformaram sua gestão
+            </p>
             {user ? (
               <Link to="/dashboard">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity shadow-glow">
+                <Button 
+                  size="lg" 
+                  className="bg-background text-foreground hover:bg-background/90 shadow-elevated hover-lift"
+                >
                   Ir ao Dashboard
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
             ) : (
               <Link to="/auth">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity shadow-glow">
-                  Começar Grátis
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                <Button 
+                  size="lg" 
+                  className="bg-background text-foreground hover:bg-background/90 shadow-elevated hover-lift"
+                >
+                  Começar Agora - Grátis
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
             )}
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-              <Play className="mr-2 h-5 w-5" />
-              Ver Demo
-            </Button>
           </div>
-
-          {/* Stats Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <div className="text-center animate-fade-in">
-              <Heart className="w-6 h-6 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-foreground">10,000+</div>
-              <div className="text-sm text-muted-foreground">Profissionais Ativos</div>
-            </div>
-            <div className="text-center animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <Calendar className="w-6 h-6 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-foreground">500K+</div>
-              <div className="text-sm text-muted-foreground">Consultas Gerenciadas</div>
-            </div>
-            <div className="text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <Star className="w-6 h-6 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-foreground">98%</div>
-              <div className="text-sm text-muted-foreground">Taxa de Satisfação</div>
-            </div>
-            <div className="text-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <Clock className="w-6 h-6 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-foreground">4hrs/dia</div>
-              <div className="text-sm text-muted-foreground">Tempo Economizado</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full animate-pulse-glow" />
-        <div className="absolute bottom-32 right-16 w-16 h-16 bg-accent/10 rounded-full animate-pulse-glow" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 right-8 w-12 h-12 bg-primary/10 rounded-full animate-pulse-glow" style={{ animationDelay: '2s' }} />
-      </section>
-
-      {/* Features Section */}
-      <FeaturesGrid features={features} />
-
-      {/* Dashboard Demo */}
-      <DashboardDemo />
-
-      {/* Pricing */}
-      <PricingSection />
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-accent text-primary-foreground">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Pronto para Revolucionar sua Prática?
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Junte-se a milhares de profissionais que já transformaram sua gestão
-          </p>
-          {user ? (
-            <Link to="/dashboard">
-              <Button 
-                size="lg" 
-                className="bg-background text-foreground hover:bg-background/90 transition-smooth shadow-glow"
-              >
-                Ir ao Dashboard
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-          ) : (
-            <Link to="/auth">
-              <Button 
-                size="lg" 
-                className="bg-background text-foreground hover:bg-background/90 transition-smooth shadow-glow"
-              >
-                Começar Agora - Grátis
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-          )}
-        </div>
-      </section>
+        </section>
+      </ScrollAnimation>
     </div>
   );
 }
